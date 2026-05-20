@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вселенная Маленького Принца</title>
+    <style>
+        :root {
+            --bg-color: #0b132b;
+            --card-bg: #1c2541;
+            --accent-color: #6fffe9;
+            --text-color: #ffffff;
+            --muted-text: #afb3c1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный космический фон */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 19, 43, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(111, 255, 233, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Главная секция */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(111, 255, 233, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--muted-text);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* Основные контейнеры секций */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px solid rgba(111, 255, 233, 0.1);
+            padding-bottom: 10px;
+        }
+
+        /* Сетка для карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(111, 255, 233, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        /* Специфично для содержания (Скролл-бокс) */
+        .chapters-container {
+            max-height: 500px;
+            overflow-y: auto;
+            background: rgba(28, 37, 65, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(111, 255, 233, 0.2);
+        }
+
+        .chapter-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .chapter-item:last-child {
+            border: none;
+            margin: 0;
+        }
+
+        .chapter-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        /* Виджет цитат */
+        .quote-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px dashed var(--accent-color);
+        }
+
+        #quote-text {
+            font-style: italic;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted-text);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Кастомизация скроллбара */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--card-bg);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 15px;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            header {
+                padding-top: 100px; /* Чтобы контент не перекрывался меню */
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+
+            section {
+                padding: 50px 15px;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 25px;
+            }
+
+            /* Перестроение секции автора в одну колонку */
+            #author > div {
+                flex-direction: column;
+                gap: 25px !important;
+            }
+
+            .quote-box {
+                padding: 25px 15px;
+            }
+
+            #quote-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">B-612</a>
+            <ul class="nav-links">
+                <li><a href="#author">Автор</a></li>
+                <li><a href="#chapters">Содержание</a></li>
+                <li><a href="#characters">Персонажи</a></li>
+                <li><a href="#quotes">Цитатник</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <h1 class="hero-title">Маленький Принц</h1>
+        <p class="hero-subtitle">Самая глубокая и обитаемая сказка в истории человечества. Путеводитель по смыслам, персонажам и главам.</p>
+        <a href="#chapters" class="btn">Изучить книгу</a>
+    </header>
+
+    <section id="author">
+        <h2>Антуан де Сент-Экзюпери</h2>
+        <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: center;">
+            <div style="flex: 1; min-width: 300px;">
+                <p style="margin-bottom: 15px;"><strong>Антуан де Сент-Экзюпери (1900–1944)</strong> — французский писатель, поэт и профессиональный летчик. Он был человеком, чья жизнь и творчество оказались неразрывно переплетены с небом.</p>
+                <p style="margin-bottom: 15px;">Служил в военной авиации, открывал новые гражданские и почтовые маршруты в Африке и Южной Америке, неоднократно терпел крушения в пустынях. Из этой опасной романтики полетов, чувства товарищества и взгляда на Землю со звездной высоты и родились его книги.</p>
+                <p>В 1943 году, находясь в Нью-Йорке, он создал свою главную философскую притчу — «Маленький принц». Год спустя, 31 июля 1944 года, он отправился в военный разведывательный полет и не вернулся обратно. Обломки его самолета были подняты со дна Средиземного моря только в 2000 году.</p>
+            </div>
+            <div class="card" style="flex: 1; min-width: 300px; text-align: center; border-left: 4px solid var(--accent-color);">
+                <h3 style="margin-bottom: 10px;">Две страсти</h3>
+                <p style="font-style: italic;">«Для меня летать и писать — это одно и то же. Главное — делать что-то, чтобы стать человеком».</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="chapters">
+        <h2>Краткое содержание глав</h2>
+        <div class="chapters-container" id="chapters-list">
+            </div>
+    </section>
+
+    <section id="characters">
+        <h2>Жители вселенной</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Маленький принц</h3>
+                <p>Символ чистого детского восприятия мира, искренности и вечного поиска истины. Он путешествует, чтобы найти друзей и понять смысл заботы.</p>
+            </div>
+            <div class="card">
+                <h3>Летчик</h3>
+                <p>Рассказчик, взрослый человек, сохранивший в душе ребенка. Понимает Принца лучше всех, потому что сам умеет видеть слона внутри удава.</p>
+            </div>
+            <div class="card">
+                <h3>Роза</h3>
+                <p>Капризный, гордый, но хрупкий цветок. Символ любви, которую Маленький Принц сначала не сумел разглядеть за упреками.</p>
+            </div>
+            <div class="card">
+                <h3>Лис</h3>
+                <p>Мудрый учитель, который открывает Принцу суть дружбы, любви и верности. Именно он произносит ключевую фразу о «приручении».</p>
+            </div>
+            <div class="card">
+                <h3>Король</h3>
+                <p>Первый встреченный взрослый. Олицетворяет жажду власти и слепое стремление повелевать, даже когда подчиняться некому.</p>
+            </div>
+            <div class="card">
+                <h3>Деловой человек</h3>
+                <p>Символ бессмысленной жадности. Тратит всю жизнь на пересчет звезд, думая, что владеет ими, но не приносит им никакой пользы.</p>
+            </div>
+            <div class="card">
+                <h3>Фонарщик</h3>
+                <p>Единственный персонаж с обитаемых астероидов, который вызвал у Принца уважение, так как думает о ком-то еще, кроме себя, верно исполняя долг.</p>
+            </div>
+            <div class="card">
+                <h3>Змея</h3>
+                <p>Первое существо, встреченное на Земле. Символ вековой мудрости, таинственности и неизбежного финала — возвращения домой через смерть.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="quotes">
+        <h2>Мудрость звезд</h2>
+        <div class="quote-box">
+            <p id="quote-text">"Зорко одно лишь сердце. Самого главного глазами не увидишь."</p>
+            <button class="btn" onclick="getRandomQuote()">Получить случайную цитату</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Сайт создан по мотивам повести А. де Сент-Экзюпери. «Мы в ответе за тех, кого приручили».</p>
+    </footer>
+
+    <script>
+        // Данные краткого содержания всех 27 глав
+        const chaptersData = [
+            { num: 1, text: "Рассказчик вспоминает детство и свой Рисунок №1 (удав, проглотивший слона), который взрослые принимали за шляпу. Из-за этого он отказался от карьеры художника." },
+            { num: 2, text: "Поломка самолета в Сахаре. Летчик встречает Маленького принца, который просит нарисовать барашка. Удовлетворяет его только рисунок ящика с барашком внутри." },
+            { num: 3, text: "Летчик узнает, что Маленький принц прилетел с другой крошечной планеты." },
+            { num: 4, text: "Выясняется, что планета Принца — астероид Б-612. Размышления автора о странностях и цифровом мышлении взрослых." },
+            { num: 5, text: "Угроза баобабов: Принц рассказывает, что на его планете нужно каждое утро пропалывать сорняки, иначе огромные корни баобабов разорвут астероид." },
+            { num: 6, text: "Маленький принц рассказывает, как любит смотреть на закаты, когда ему грустно. Однажды он видел закат 43 раза за день." },
+            { num: 7, text: "Разговор о шипах у роз. Летчик занят ремонтом, но понимает, что слезы ребенка и судьба его цветка важнее всех железных болтов." },
+            { num: 8, text: "На астероиде Принца появляется прекрасная, но капризная Роза. Из-за её обидчивости Принц решает покинуть дом." },
+            { num: 9, text: "Принц прощается со своей планетой, прочищает вулканы и в последний раз поливает плачущую Розу, которая признается ему в любви." },
+            { num: 10, text: "Посещение первого астероида. Знакомство с Королем, который считает всех своими подданными, но отдает только разумные приказания." },
+            { num: 11, text: "Второй астероид. Встреча с Честолюбцем, который хочет, чтобы им только восхищались и хлопали в ладоши." },
+            { num: 12, text: "Третий астероид. Встреча с Пьяницей, который пьет, чтобы забыть, что ему стыдно пить." },
+            { num: 13, text: "Четвертый астероид. Деловой человек, который занят бессмысленным подсчетом звезд и считает их своей собственностью." },
+            { num: 14, text: "Пятый астероид. Самая маленькая планета и Фонарщик, который ежеминутно зажигает и тушит фонарь. Принц уважает его за верность слову." },
+            { num: 15, text: "Шестой астероид. Географ, пишущий огромные книги, но не знающий свою планету. Он советует Принцу посетить Землю." },
+            { num: 16, text: "Прибытие на Землю. Автор размышляет об огромном количестве фонарщиков и взрослых на этой планете." },
+            { num: 17, text: "Разговор со Змеей в пустыне Сахара. Змея говорит, что среди людей тоже может быть одиноко, и обещает помочь Принцу вернуться домой, когда он сильно затоскует." },
+            { num: 18, text: "Принц пересекает пустыню и встречает невзрачный цветок, который считает, что у людей нет корней и их носит ветром." },
+            { num: 19, text: "Принц поднимается на высокую гору, но слышит только эхо, принимая его за черствость жителей Земли." },
+            { num: 20, text: "Принц находит сад со множеством роз. Он горько плачет, поняв, что его Роза врала, называя себя единственной во вселенной." },
+            { num: 21, text: "Встреча с Лисом. Лис объясняет значение слова «приручить» (создать узы). Принц понимает, что его Роза — единственная, потому что он её приручил. Лис дарит секрет: «Зорко одно лишь сердце»." },
+            { num: 22, text: "Разговор со Стрелочником о людях, которые вечно спешат в поездах, сами не зная, чего ищут. Только дети смотрят в окна." },
+            { num: 23, text: "Встреча с Торговцем пилюлями против жажды, которые экономят 53 минуты в неделю. Принц решает, что потратил бы это время на поход к источнику." },
+            { num: 24, text: "Восьмой день в пустыне. У Летчика кончилась вода. Они с Принцем отправляются искать колодец под ночными звездами." },
+            { num: 25, text: "Они находят настоящий колодец в пустыне. Вода кажется сладкой, как пиршество. Принц напоминает Летчику, что тот должен нарисовать намордник для барашка." },
+            { num: 26, text: "Принц договаривается со Змеей о «возвращении». Он успокаивает Летчика, говоря, что его смерть будет лишь похожа на оболочку старой астры, а звезды будут смеяться его голосом. Змея кусает Принца." },
+            { num: 27, text: "Эпилог. Летчик вернулся домой. Он грустит, смотрит на небо и думает: не съел ли барашек Розу, ведь он забыл пририсовать ремешок к наморднику." }
+        ];
+
+        // Массив цитат
+        const quotes = [
+            "Зорко одно лишь сердце. Самого главного глазами не увидишь.",
+            "Ты навсегда в ответе за всех, кого приручил.",
+            "Себя судить куда труднее, чем других.",
+            "Если идти все прямо да прямо, далеко не уйдешь...",
+            "Все взрослые сначала были детьми, только мало кто из них об этом помнит.",
+            "Когда станет очень грустно, хорошо поглядеть, как заходит солнце.",
+            "У каждого человека свои звезды.",
+            "Слова только мешают понимать друг друга."
+        ];
+
+        // Генерация списка глав
+        const chaptersContainer = document.getElementById('chapters-list');
+        chaptersData.forEach(ch => {
+            const div = document.createElement('div');
+            div.className = 'chapter-item';
+            div.innerHTML = `<div class="chapter-title">Глава ${ch.num}</div><p>${ch.text}</p>`;
+            chaptersContainer.appendChild(div);
+        });
+
+        // Функция генерации цитат
+        function getRandomQuote() {
+            const textEl = document.getElementById('quote-text');
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            textEl.style.opacity = 0;
+            setTimeout(() => {
+                textEl.innerText = `"${quotes[randomIndex]}"`;
+                textEl.style.opacity = 1;
+            }, 200);
+        }
+    </script>
+</body>
+</html>
