@@ -6,11 +6,12 @@
     <title>Вселенная Маленького Принца</title>
     <style>
         :root {
-            --bg-color: #0b132b;
-            --card-bg: #1c2541;
-            --accent-color: #6fffe9;
-            --text-color: #ffffff;
-            --muted-text: #afb3c1;
+            /* Цвета в стиле печатного плаката */
+            --bg-color: #f4f1eb;
+            --text-color: #000000;
+            --accent-color: #000000;
+            --muted-text: #333333;
+            --border-color: #000000;
         }
 
         * {
@@ -20,22 +21,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.4;
             overflow-x: hidden;
-        }
-
-        /* Анимированный космический фон */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            z-index: -1;
+            font-size: 16px;
         }
 
         /* Навигация */
@@ -43,258 +34,345 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(11, 19, 43, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(244, 241, 235, 0.95);
+            backdrop-filter: blur(5px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(111, 255, 233, 0.2);
+            border-bottom: 2px solid var(--border-color);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 15px 40px;
         }
 
         .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--accent-color);
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--text-color);
             text-decoration: none;
+            letter-spacing: -0.05em;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 30px;
         }
 
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent-color);
+            opacity: 0.5;
         }
 
-        /* Главная секция */
+        /* Главная секция (Стиль плаката) */
         header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
+            max-width: 1400px;
+            margin: 120px auto 40px;
+            padding: 0 40px;
             position: relative;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(111, 255, 233, 0.5);
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--muted-text);
-            max-width: 600px;
+        .hero-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
             margin-bottom: 40px;
         }
 
-        .btn {
-            background: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 25px;
-            font-size: 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+        .hero-title {
+            font-size: clamp(3rem, 12vw, 13rem);
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            text-transform: none;
         }
 
-        .btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--accent-color);
+        .hero-text-block {
+            max-width: 300px;
+            font-size: 0.95rem;
+            text-align: right;
+            padding-bottom: 20px;
         }
+
+        .star-icon {
+            font-size: 3rem;
+            line-height: 1;
+            position: absolute;
+        }
+
+        .star-1 { top: -55px; left: 0; }
+        .star-2 { top: -55px; right: 0; }
 
         /* Основные контейнеры секций */
         section {
-            padding: 80px 20px;
-            max-width: 1200px;
+            padding: 60px 40px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         section h2 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
             margin-bottom: 40px;
-            text-align: center;
-            border-bottom: 2px solid rgba(111, 255, 233, 0.1);
+            border-bottom: 3px solid var(--border-color);
             padding-bottom: 10px;
+        }
+
+        /* Подзаголовки категорий персонажей */
+        .character-category-title {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 50px 0 20px 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+            letter-spacing: -0.01em;
+        }
+
+        .character-category-title:first-of-type {
+            margin-top: 20px;
+        }
+
+        .category-intro {
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+            max-width: 900px;
+            line-height: 1.5;
         }
 
         /* Сетка для карточек */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
 
         .card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
+            background-color: transparent;
             padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 5px 15px rgba(111, 255, 233, 0.1);
+            background-color: var(--text-color);
+            color: var(--bg-color);
         }
 
         .card h3 {
             margin-bottom: 15px;
-            color: var(--accent-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
-        /* Специфично для содержания (Скролл-бокс) */
+        /* Содержание (Скролл-бокс) */
         .chapters-container {
-            max-height: 500px;
+            max-height: 600px;
             overflow-y: auto;
-            background: rgba(28, 37, 65, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(111, 255, 233, 0.2);
+            background: transparent;
+            padding: 30px;
+            border: 2px solid var(--border-color);
         }
 
         .chapter-item {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
         }
 
         .chapter-item:last-child {
             border: none;
             margin: 0;
+            padding-bottom: 0;
         }
 
         .chapter-title {
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         /* Виджет цитат */
         .quote-box {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
+            padding: 60px;
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            border: 1px dashed var(--accent-color);
+            border: 3px solid var(--border-color);
+            position: relative;
         }
 
         #quote-text {
             font-style: italic;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        .btn {
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Дополнительные стили для блока автора */
+        .bio-column {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .bio-column h3 {
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .bio-column p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            color: var(--muted-text);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-top: 3px solid var(--border-color);
+            margin-top: 60px;
         }
 
         /* Кастомизация скроллбара */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
         ::-webkit-scrollbar-track {
             background: var(--bg-color);
+            border-left: 2px solid var(--border-color);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--card-bg);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-color);
+            background: var(--text-color);
         }
 
         /* АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        @media (max-width: 900px) {
+            .hero-layout {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero-text-block {
+                text-align: left;
+                max-width: 100%;
+                margin-top: 20px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                font-size: 0.95rem;
+            }
             .nav-container {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
                 padding: 12px 15px;
-                text-align: center;
             }
-
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 12px;
+                gap: 15px;
             }
-
             .nav-links a {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
-
             header {
-                padding-top: 100px; /* Чтобы контент не перекрывался меню */
-                height: auto;
-                min-height: 100vh;
+                margin-top: 150px;
+                padding: 0 20px;
             }
-
             .hero-title {
-                font-size: 2.2rem;
+                line-height: 0.95;
+                margin-top: 10px;
             }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-                margin-bottom: 30px;
-            }
+            .star-1 { top: -45px; left: 0; font-size: 2rem; }
+            .star-2 { top: -45px; right: 0; font-size: 2rem; }
 
             section {
-                padding: 50px 15px;
+                padding: 40px 20px;
             }
-
             section h2 {
-                font-size: 1.8rem;
                 margin-bottom: 25px;
             }
-
-            /* Перестроение секции автора в одну колонку */
-            #author > div {
-                flex-direction: column;
-                gap: 25px !important;
+            .character-category-title {
+                margin: 35px 0 15px 0;
             }
-
+            .category-intro {
+                font-size: 0.95rem;
+                margin-bottom: 15px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 10px;
+            }
+            .chapters-container {
+                padding: 20px 15px;
+            }
             .quote-box {
-                padding: 25px 15px;
+                padding: 40px 20px;
             }
+        }
 
-            #quote-text {
-                font-size: 1.1rem;
+        @media (max-width: 480px) {
+            header, section {
+                padding: 35px 15px;
+            }
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+            .card {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="stars"></div>
 
     <nav>
         <div class="nav-container">
@@ -309,80 +387,165 @@
     </nav>
 
     <header>
-        <h1 class="hero-title">Маленький Принц</h1>
-        <p class="hero-subtitle">Самая глубокая и обитаемая сказка в истории человечества. Путеводитель по смыслам, персонажам и главам.</p>
-        <a href="#chapters" class="btn">Изучить книгу</a>
+        <div class="hero-layout">
+            <div class="star-icon star-1">✦</div>
+            <div class="star-icon star-2">✦</div>
+            <h1 class="hero-title">Le Petit<br>Prince</h1>
+            <div class="hero-text-block">
+                «Маленький принц» — философская сказка-притча о мальчике с далекого астероида, познающем мир. Через его путешествие и дружбу с Лисом автор напоминает, что по-настоящему зорко только сердце, а люди всегда в ответе за тех, кого приручили.
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="#chapters" class="btn">Изучить книгу</a>
+        </div>
     </header>
 
     <section id="author">
-        <h2>Антуан де Сент-Экзюпери</h2>
-        <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: center;">
-            <div style="flex: 1; min-width: 300px;">
-                <p style="margin-bottom: 15px;"><strong>Антуан де Сент-Экзюпери (1900–1944)</strong> — французский писатель, поэт и профессиональный летчик. Он был человеком, чья жизнь и творчество оказались неразрывно переплетены с небом.</p>
-                <p style="margin-bottom: 15px;">Служил в военной авиации, открывал новые гражданские и почтовые маршруты в Африке и Южной Америке, неоднократно терпел крушения в пустынях. Из этой опасной романтики полетов, чувства товарищества и взгляда на Землю со звездной высоты и родились его книги.</p>
-                <p>В 1943 году, находясь в Нью-Йорке, он создал свою главную философскую притчу — «Маленький принц». Год спустя, 31 июля 1944 года, он отправился в военный разведывательный полет и не вернулся обратно. Обломки его самолета были подняты со дна Средиземного моря только в 2000 году.</p>
+        <h2 style="font-size: clamp(1.4rem, 4.5vw, 4rem); line-height: 1.2; word-break: break-word;">Antoine Marie Jean-Baptiste<br>Roger vicomte de Saint-Exupéry</h2>
+         
+        <p style="font-size: clamp(1.1rem, 2.8vw, 1.8rem); font-weight: bold; margin: 30px 0 25px; line-height: 1.3;">
+            Антуан де Сент-Экзюпери родился 29 июня 1900 года в Лионе в обедневшей дворянской семье. Мир авиации увлек его еще в 12 лет, когда паренька впервые покатали на самолете. С тех пор его жизнь разделилась между небом и литературой.
+        </p>
+
+        <div style="display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 40px;">
+            <div class="bio-column">
+                <h3>Начало карьеры в авиации</h3>
+                <p>Экзюпери не сразу стал пилотом — сначала он изучал архитектуру в Шконе изящных искусств. Переломным моментом стал призыв в армию в 1921 году, где он записался в истребительную авиацию.</p>
+                <p>В 1926 году Антуан стал пилотом компании «Аэропосталь», доставлявшей почту в Северную Африку и Ющую Америку. Работа на грани жизни и смерти, борьба со стихией сформировали его как писателя. Свои первые романы «Южный почтовый» и «Ночной полет» он писал между дежурствами.</p>
             </div>
-            <div class="card" style="flex: 1; min-width: 300px; text-align: center; border-left: 4px solid var(--accent-color);">
-                <h3 style="margin-bottom: 10px;">Две страсти</h3>
-                <p style="font-style: italic;">«Для меня летать и писать — это одно и то же. Главное — делать что-то, чтобы стать человеком».</p>
+             
+            <div class="bio-column">
+                <h3>Литературная деятельность</h3>
+                <p>Экзюпери писал о том, что пережил сам: о верности долгу, мужской дружбе и ответственности. В 1939 году за книгу «Планета людей» он получил престижную премию Французской академии.</p>
+                <p>Главным же его шедевром стала философская притча «Маленький принц» (1943). Написанная простым языком, эта сказка-аллегория напоминает взрослым о самых важных вещах: любви, дружбе, одиночестве и умении видеть сердцем.</p>
+            </div>
+             
+            <div class="bio-column">
+                <h3>Военные годы и гибель</h3>
+                <p>Когда началась Вторая мировая война, Экзюпери, несмотря на травмы от прошлых катастроф и протесты врачей, добился зачисления в боевую разведывательную эскадрилью.</p>
+                <p>31 июля 1944 года он взлетел с аэродрома на острове Сардиния в свой девятый разведывательный полет и не вернулся. Он ушел в небо, которое любил больше всего на свете.</p>
+            </div>
+        </div>
+
+        <div class="card" style="border-width: 4px; padding: clamp(20px, 4vw, 40px); text-align: center; margin-bottom: 40px;">
+            <h3 style="text-transform: uppercase; margin-bottom: 10px;">Жизненное кредо</h3>
+            <p style="font-size: clamp(1.1rem, 2.5vw, 1.8rem); font-weight: bold; font-style: italic; line-height: 1.3;">
+                «Я обязан участвовать в этой войне. Все, что я люблю, под угрозой. Я не могу оставаться в стороне».
+            </p>
+        </div>
+
+        <h2 style="font-size: clamp(1.6rem, 4vw, 3rem); border-bottom: none; margin-bottom: 20px;">Интересные факты</h2>
+        <div class="grid">
+            <div class="card">
+                <h3 style="text-transform: uppercase; font-size: 1.2rem;">Полное имя</h3>
+                <p><strong>Антуан Мари Жан-Батист Роже, виконт де Сент-Экзюпери.</strong> В детстве из-за копны светлых волос и графского происхождения друзья звали его «Король-Солнце», а позже в авиации за форму носа — «Тонио».</p>
+            </div>
+            <div class="card">
+                <h3 style="text-transform: uppercase; font-size: 1.2rem;">Изобретения</h3>
+                <p>Экзюпери профессионально разбирался в технике. Он получил несколько патентов, среди которых был новый тип прибора для ночной посадки и усовершенствованный авиационный двигатель.</p>
+            </div>
+            <div class="card">
+                <h3 style="text-transform: uppercase; font-size: 1.2rem;">Создание притчи</h3>
+                <p>Свою самую знаменитую, чисто французскую сказку Экзюпери написал не во Франции, а в американской эмиграции. Рисунки к книге он тоже выполнил сам, акварелью.</p>
+            </div>
+            <div class="card">
+                <h3 style="text-transform: uppercase; font-size: 1.2rem;">Случай в пустыне</h3>
+                <p>В 1935 году самолет Экзюпери потерпел крушение в Ливийской пустыне. Он и механик провели дни на жаре почти без воды, страдая от галлюцинаций. Этот опыт лег в основу «Маленького принца».</p>
+            </div>
+            <div class="card">
+                <h3 style="text-transform: uppercase; font-size: 1.2rem;">Исчезновение</h3>
+                <p>Обломки его Lockheed P-38 Lightning нашли на дне Средиземного моря только в 2000 году. Чуть раньше местный рыбак случайно выловил в море серебряный браслет с именем его жены Консуэло.</p>
             </div>
         </div>
     </section>
 
     <section id="chapters">
-        <h2>Краткое содержание глав</h2>
+        <h2>Содержание</h2>
         <div class="chapters-container" id="chapters-list">
-            </div>
+        </div>
     </section>
 
     <section id="characters">
-        <h2>Жители вселенной</h2>
-        <div class="grid">
+        <h2>Персонажи</h2>
+
+        <div class="character-category-title">Главные герои</div>
+        <div class="grid" style="margin-bottom: 20px;">
             <div class="card">
                 <h3>Маленький принц</h3>
-                <p>Символ чистого детского восприятия мира, искренности и вечного поиска истины. Он путешествует, чтобы найти друзей и понять смысл заботы.</p>
+                <p>Путешественник с астероида Б-612. Это олицетворение чистой детской души, искренности, открытости миру и непредвзятого взгляда на вещи.</p>
             </div>
             <div class="card">
-                <h3>Летчик</h3>
-                <p>Рассказчик, взрослый человек, сохранивший в душе ребенка. Понимает Принца лучше всех, потому что сам умеет видеть слона внутри удава.</p>
+                <h3>Лётчик (Рассказчик)</h3>
+                <p>Взрослый человек, который не потерял способность понимать детей. Он становится проводником читателя и лучшим другом Принца на Земле.</p>
             </div>
             <div class="card">
                 <h3>Роза</h3>
-                <p>Капризный, гордый, но хрупкий цветок. Символ любви, которую Маленький Принц сначала не сумел разглядеть за упреками.</p>
+                <p>Капризный, гордый, но невероятно хрупкий цветок, который Маленький принц оставил на своей планете. Она символизирует настоящую любовь, красоту и ранимость, которые мы часто учимся ценить только на расстоянии.</p>
             </div>
+        </div>
+
+        <div class="character-category-title">Жители астероидов (взрослые)</div>
+        <p class="category-intro">Путешествуя до Земли, Принц посещает соседние планеты, где знакомится с типажами взрослых, потерявших смысл жизни за своими абсурдными привычками:</p>
+        <div class="grid" style="margin-bottom: 20px;">
+            <div class="card">
+                <h3>Король <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 325</span></h3>
+                <p>Мнимый правитель, который считает, что ему подчиняется вся Вселенная. Символизирует властолюбие и бюрократию.</p>
+            </div>
+            <div class="card">
+                <h3>Честолюбец <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 326</span></h3>
+                <p>Человек, который жаждет только восхищения и аплодисментов, оставаясь глухим ко всему остальному. Олицетворяет тщеславие.</p>
+            </div>
+            <div class="card">
+                <h3>Пьяница <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 327</span></h3>
+                <p>Несчастный обитатель, который пьёт, чтобы забыть, как ему стыдно за то, что он пьёт. Символ замкнутого круга зависимостей и слабоволия.</p>
+            </div>
+            <div class="card">
+                <h3>Деловой человек <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 328</span></h3>
+                <p>Постоянно считает звёзды и думает, что владеет ими. Олицетворяет бессмысленную алчность, сухость и поглощённость цифрами.</p>
+            </div>
+            <div class="card">
+                <h3>Фонарщик <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 329</span></h3>
+                <p>Единственный, чья работа кажется Принцу полезной, ведь он думает о других, зажигая фонарь. Однако из-за слепого следования уставу и изменившихся условий его труд превратился в абсурд.</p>
+            </div>
+            <div class="card">
+                <h3>Географ <span style="font-weight: normal; font-size: 1rem; display: block; opacity: 0.6; margin-top: 4px;">астероид 330</span></h3>
+                <p>Учёный, который пишет огромные книги, но никогда не видел собственную планету, потому что «не царское это дело — путешествовать». Символ кабинетной науки, оторванной от реальности. Именно он советует Принцу посетить Землю.</p>
+            </div>
+        </div>
+
+        <div class="character-category-title">Персонажи, встреченные на Земле</div>
+        <div class="grid">
             <div class="card">
                 <h3>Лис</h3>
-                <p>Мудрый учитель, который открывает Принцу суть дружбы, любви и верности. Именно он произносит ключевую фразу о «приручении».</p>
-            </div>
-            <div class="card">
-                <h3>Король</h3>
-                <p>Первый встреченный взрослый. Олицетворяет жажду власти и слепое стремление повелевать, даже когда подчиняться некому.</p>
-            </div>
-            <div class="card">
-                <h3>Деловой человек</h3>
-                <p>Символ бессмысленной жадности. Тратит всю жизнь на пересчет звезд, думая, что владеет ими, но не приносит им никакой пользы.</p>
-            </div>
-            <div class="card">
-                <h3>Фонарщик</h3>
-                <p>Единственный персонаж с обитаемых астероидов, который вызвал у Принца уважение, так как думает о ком-то еще, кроме себя, верно исполняя долг.</p>
+                <p>Один из ключевых персонажей сказки. Он учит Принца дружбе, верности и ритуалу «приручения». Именно Лис произносит знаменитые истины: «Зорко одно лишь сердце» и «Мы в ответе за тех, кого приручили».</p>
             </div>
             <div class="card">
                 <h3>Змея</h3>
-                <p>Первое существо, встреченное на Земле. Символ вековой мудрости, таинственности и неизбежного финала — возвращения домой через смерть.</p>
+                <p>Первое существо, которое Принц встречает на Земле. Она говорит загадками и олицетворяет мудрость, судьбу и неизбежность смерти, предлагая Принцу свою помощь, когда тот захочет вернуться домой.</p>
+            </div>
+            <div class="card">
+                <h3>Стрелочник</h3>
+                <p>Человек, который переводит стрелки поездов. Он подчёркивает бессмысленную суету людей, которые вечно куда-то едут и сами не знают, чего ищут.</p>
+            </div>
+            <div class="card">
+                <h3>Торговец пилюлями</h3>
+                <p>Продаёт таблетки, экономящие 53 минуты в неделю на питье. Символизирует абсурдное стремление «экономить время» на базовых радостях жизни ради мнимой эффективности.</p>
             </div>
         </div>
     </section>
 
     <section id="quotes">
-        <h2>Мудрость звезд</h2>
+        <h2>Мудрость</h2>
         <div class="quote-box">
-            <p id="quote-text">"Зорко одно лишь сердце. Самого главного глазами не увидишь."</p>
-            <button class="btn" onclick="getRandomQuote()">Получить случайную цитату</button>
+            <div class="star-icon" style="top: -25px; left: -25px; background: var(--bg-color);">✦</div>
+            <div class="star-icon" style="bottom: -25px; right: -25px; background: var(--bg-color);">✦</div>
+            <p id="quote-text">«Зорко одно лишь сердце. Самого главного глазами не увидишь.»</p>
+            <button class="btn" onclick="getRandomQuote()">Другая цитата</button>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Сайт создан по мотивам повести А. де Сент-Экзюпери. «Мы в ответе за тех, кого приручили».</p>
+        <p>© 2026 А. де Сент-Экзюпери. Мы в ответе за тех, кого приручили.</p>
     </footer>
 
     <script>
@@ -404,29 +567,29 @@
             { num: 14, text: "Пятый астероид. Самая маленькая планета и Фонарщик, который ежеминутно зажигает и тушит фонарь. Принц уважает его за верность слову." },
             { num: 15, text: "Шестой астероид. Географ, пишущий огромные книги, но не знающий свою планету. Он советует Принцу посетить Землю." },
             { num: 16, text: "Прибытие на Землю. Автор размышляет об огромном количестве фонарщиков и взрослых на этой планете." },
-            { num: 17, text: "Разговор со Змеей в пустыне Сахара. Змея говорит, что среди людей тоже может быть одиноко, и обещает помочь Принцу вернуться домой, когда он сильно затоскует." },
+            { num: 17, text: "Разговор со Змеей в пустыне Сахара. Змея говорит, что среди людей тоже может быть одиноко, и обещает помочь Принцу вернуться домой." },
             { num: 18, text: "Принц пересекает пустыню и встречает невзрачный цветок, который считает, что у людей нет корней и их носит ветром." },
             { num: 19, text: "Принц поднимается на высокую гору, но слышит только эхо, принимая его за черствость жителей Земли." },
             { num: 20, text: "Принц находит сад со множеством роз. Он горько плачет, поняв, что его Роза врала, называя себя единственной во вселенной." },
-            { num: 21, text: "Встреча с Лисом. Лис объясняет значение слова «приручить» (создать узы). Принц понимает, что его Роза — единственная, потому что он её приручил. Лис дарит секрет: «Зорко одно лишь сердце»." },
+            { num: 21, text: "Встреча с Лисом. Лис объясняет значение слова «приручить» (создать узы). Принц понимает, что его Роза — единственная." },
             { num: 22, text: "Разговор со Стрелочником о людях, которые вечно спешат в поездах, сами не зная, чего ищут. Только дети смотрят в окна." },
-            { num: 23, text: "Встреча с Торговцем пилюлями против жажды, которые экономят 53 минуты в неделю. Принц решает, что потратил бы это время на поход к источнику." },
+            { num: 23, text: "Встреча с Торговцем пилюлями против жажды, которые экономят 53 минуты в неделю." },
             { num: 24, text: "Восьмой день в пустыне. У Летчика кончилась вода. Они с Принцем отправляются искать колодец под ночными звездами." },
-            { num: 25, text: "Они находят настоящий колодец в пустыне. Вода кажется сладкой, как пиршество. Принц напоминает Летчику, что тот должен нарисовать намордник для барашка." },
-            { num: 26, text: "Принц договаривается со Змеей о «возвращении». Он успокаивает Летчика, говоря, что его смерть будет лишь похожа на оболочку старой астры, а звезды будут смеяться его голосом. Змея кусает Принца." },
-            { num: 27, text: "Эпилог. Летчик вернулся домой. Он грустит, смотрит на небо и думает: не съел ли барашек Розу, ведь он забыл пририсовать ремешок к наморднику." }
+            { num: 25, text: "Они находят настоящий колодец в пустыне. Вода кажется сладкой, как пиршество." },
+            { num: 26, text: "Принц договаривается со Змеей о «возвращении». Он успокаивает Летчика, говоря, что его смерть будет лишь похожа на оболочку старой астры." },
+            { num: 27, text: "Эпилог. Летчик вернулся домой. Он грустит, смотрит на небо и думает: не съел ли барашек Розу." }
         ];
 
         // Массив цитат
         const quotes = [
-            "Зорко одно лишь сердце. Самого главного глазами не увидишь.",
-            "Ты навсегда в ответе за всех, кого приручил.",
-            "Себя судить куда труднее, чем других.",
-            "Если идти все прямо да прямо, далеко не уйдешь...",
-            "Все взрослые сначала были детьми, только мало кто из них об этом помнит.",
-            "Когда станет очень грустно, хорошо поглядеть, как заходит солнце.",
-            "У каждого человека свои звезды.",
-            "Слова только мешают понимать друг друга."
+            "«Зорко одно лишь сердце. Самого главного глазами не увидишь.»",
+            "«Ты навсегда в ответе за всех, кого приручил.»",
+            "«Себя судить куда труднее, чем других.»",
+            "«Если идти все прямо да прямо, далеко не уйдешь...»",
+            "«Все взрослые сначала были детьми, только мало кто из них об этом помнит.»",
+            "«Когда станет очень грустно, хорошо поглядеть, как заходит солнце.»",
+            "«У каждого человека свои звезды.»",
+            "«Слова только мешают понимать друг друга.»"
         ];
 
         // Генерация списка глав
@@ -442,9 +605,10 @@
         function getRandomQuote() {
             const textEl = document.getElementById('quote-text');
             const randomIndex = Math.floor(Math.random() * quotes.length);
+            textEl.style.transition = 'opacity 0.2s';
             textEl.style.opacity = 0;
             setTimeout(() => {
-                textEl.innerText = `"${quotes[randomIndex]}"`;
+                textEl.innerText = quotes[randomIndex];
                 textEl.style.opacity = 1;
             }, 200);
         }
